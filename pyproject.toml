@@ -1,0 +1,10 @@
+[project]
+name = "social-media-receipts"
+version = "0.1.0"
+description = "Print social media feeds on a receipt printer"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "mastodon-py>=2.1.4",
+    "pillow>=12.1.0",
+]
