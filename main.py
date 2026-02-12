@@ -13,12 +13,12 @@ def main():
     except FileNotFoundError:
         print("Configuration file not found", file=sys.stderr)
         sys.exit(1)
-
-    feeds = []
-    for feed in config['feeds'].items():
-        feeds.append(feed)
-
-
+    try:
+        printer = open(args.printer, "wb")
+        listen_to_feeds(config['feeds'])
+    #It doesn't matter exactly what kind of error we get here, 
+    except Exception as e:
+        print(f"Could not access printer: {e}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()
