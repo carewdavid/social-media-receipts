@@ -1,4 +1,5 @@
 import argparse
+import sys
 import tomllib
 
 def main():
@@ -6,12 +7,16 @@ def main():
     argument_parser.add_argument("-p", "--printer", help="Path to line printer", default="/dev/usb/lp0")
     argument_parser.add_argument("-c", "--config", help="Path to config file", default="receipt.conf")
     args = argument_parser.parse_args()
-    with open(args.config, "rb") as config_file:
+    try:
+        config_file = open(args.config, "rb")
         config = tomllib.load(config_file)
-        printer = Printer(args.printer, config['printer'])
-        feeds = []
-        for feed in config['feeds'].items():
-            feeds.append(feed)
+    except FileNotFoundError:
+        print("Configuration file not found", file=sys.stderr)
+        sys.exit(1)
+
+    feeds = []
+    for feed in config['feeds'].items():
+        feeds.append(feed)
 
 
 
